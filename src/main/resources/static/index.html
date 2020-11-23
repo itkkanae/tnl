@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>otowa</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <script src="vue.js"></script>
+    <script src="axios.min.js"></script>
+</head>
+<body>
+
+<div id="body">
+    <div v-html="bd" style="display: inline-block; width: 45%; vertical-align: top">{{bd}}</div>
+    <div v-html="wb" style="display: inline-block; width: 45%; vertical-align: top">{{wb}}</div>
+</div>
+
+<script>
+    var vue = new Vue({
+        el: "#body",
+        data: {
+            bd: null,
+            wb:null
+        },
+        methods: {
+            getBdList: function () {
+                axios.get('./bdl').then(function (response) {
+                    vue.bd = response.data;
+                });
+            },
+            getWbList: function () {
+                axios.get('./wbl').then(function (response) {
+                    vue.wb = response.data;
+                });
+            }
+        },
+        mounted: function () {
+            this.getBdList();
+            this.getWbList();
+        }
+    });
+
+
+</script>
+</body>
+</html>
